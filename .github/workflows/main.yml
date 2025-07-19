@@ -1,0 +1,48 @@
+name: Setup ngrok and Remote Desktop
+
+on:
+  workflow_dispatch:  # ❗ Sirf manual run allowed
+
+  jobs:
+    setup-ngrok:
+        runs-on: windows-latest
+            timeout-minutes: 360
+                steps:
+                      - name: Checkout repository
+                              uses: actions/checkout@v3
+
+                                    - name: Download ngrok
+                                            run: |
+                                                      Invoke-WebRequest https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-windows-amd64.zip -OutFile ngrok.zip
+                                                                if (!(Test-Path -Path ngrok.zip)) { throw "Failed to download ngrok" }
+
+                                                                      - name: Extract ngrok
+                                                                              run: |
+                                                                                        Expand-Archive ngrok.zip -DestinationPath .
+                                                                                                  if (!(Test-P ngrok" }
+
+                                                                                                   ngrok.exe)) { throw "Failed to extract ngrok" }
+
+                                                                                                         - name: Update ngrok
+                                                                                                                 run: .\ngrok
+                                                                                                                         run: .\ngrok.exe authtoken $Env:NGROK_AUTH_TOKEN
+                                                                                                                               OK_AUTH_TO       NGROK_AUTH_TOKEN: ${{ semote .NGROK_AUTH_TOKEN n: |
+                                                                                                                                         Set-nable Remote Desktop
+                                                                                                                                                 tem\Curr         Set-Itentrol\Terminal ServeM:\System\CurrentControlSet\Control\ erminal Server' -name "fDenyTSCule -tions" -Value 0
+                                                                                                                                                           Ep"
+                                                                                                                                                                  irewallRule -DisplayGroup "RemM:\Syssktop"
+                                                                                                                                                                            SSet\Control\Terminath 'HKLM:\Systations\RDP-Tcp' -name ontrol\Teentication" -Value 1
+                                                                                                                                                                                   P-Tcp' -name "UserAuthentication" -Value 1
+                                                                                                                                                                                             Set-LocalUser -ngme "runneradmin" -Password (Coce)
+                                                                                                                                                                                                  ecureString -AsPlainText "P@ssw0rd!" -Fdmin")) { throw "FaileGeto create user" }
+                                                                                                                                                                                                  
+                                                                                                                                                                                                        - name: Creatrow "Failed to cree mote desktop
+                                                                                                                                                                                                                r($LASTEXITCODE -nengrok.throw "Failed to create ngrok tunnITCODE -ne 0) { throw "Failed to create ngrok tunnITCODE -ne 0) { throw "Failed to create ngrok tunnITCODE -ne 0) { throw "Failed to create ngrok tunnel" }
+                                                                                                                                                                                                                
+                                                                                                                                                                                                                      - name: Keep alive
+                                                                                                                                                                                                                              run: |
+                                                                                                                                                                                                                                        while ($true) {
+                                                                                                                                                                                                                                                    Write-Output "Keeping the workflow alive..."
+                                                                                                                                                                                                                                                                Start-Sleep -Seconds 300
+                                                                                                                                                                                                                                                                          }
+                                                                                                                                                                                                                                                                                  continue-on-error: true
